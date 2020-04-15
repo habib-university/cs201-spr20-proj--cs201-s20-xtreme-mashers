@@ -1,0 +1,9 @@
+*~
+*.pdf
+*.aux
+*.log
+*.out
+__pycache__
+*.json
+*.bat
+*.exe
