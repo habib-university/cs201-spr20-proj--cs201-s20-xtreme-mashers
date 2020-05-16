@@ -1,13 +1,13 @@
 class TangoTree:
 
-    def __init__:
+    def __init__():
         pass
 
-    def add(): -> None
+    def add() -> None:
         pass
 
-    def remove(): -> None
+    def remove() -> None:
         pass
     
-    def join(): -> None
+    def join() -> None:
         pass
