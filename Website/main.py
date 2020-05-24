@@ -21,11 +21,12 @@ def scrape(text):
     #select parts of it, allowing us to extract only the URL.
     result = soup.select('.BNeawe a')
 
+    #Creating a dictionary to present an organized results screen.
     dict={}
     n=0
     for i in result[0:11]: #loop to get first 10 links.
-        initial_link = i.get('href')
-        if "http" in initial_link:
+        initial_link = i.get('href') #grab the base url from our scraped data.
+        if "http" in initial_link: #Remove unwanted prefixes and suffixes from urls.
             slicer = initial_link.find("http")
             initial_link = initial_link[int(slicer):]
             if "&sa" in initial_link:
