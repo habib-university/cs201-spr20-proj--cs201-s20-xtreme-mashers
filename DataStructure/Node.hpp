@@ -6,15 +6,14 @@ class Node
     Node* _left;
     Node* _right;
     int _depth;
-    Node* _preferedchild;
-
+    Node* _preferedchild = nullptr;
     public:
     Node(T& val, Node* left, Node* right)
     {
         _val = val;
         _left = left;
         _right = right;
-        _preferedchild = NULL;
+        _preferedchild = nullptr;
     }
     ~Node();
     Node* getRight()
@@ -53,4 +52,4 @@ class Node
     {
         return _val;
     }
-};
+}
