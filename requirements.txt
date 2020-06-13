@@ -1,5 +1,4 @@
 flask
-beautifulsoup
-bs4
+beautifulsoup4
 requests
-webbrowser
+textblob
