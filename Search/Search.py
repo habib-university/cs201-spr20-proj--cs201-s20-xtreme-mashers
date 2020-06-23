@@ -19,9 +19,8 @@ def scrape(text):
     result = soup.select('.BNeawe a')
 
     #Creating a dictionary to present an organized results screen.
-    dict={}
-    n=0
-    for i in result[0:26]: #loop to get first 10 links.
+    lst = []
+    for i in result[0:11]: #loop to get first 10 links.
         initial_link = i.get('href') #grab the base url from our scraped data.
         if "http" in initial_link: #Remove unwanted prefixes and suffixes from urls.
             slicer = initial_link.find("http")
@@ -41,10 +40,28 @@ def scrape(text):
             elif "%3Fref" in initial_link:
                 slicer = initial_link.find("%3Fref")
                 initial_link = initial_link[:int(slicer)]
-        for x in lst1:
-            flag = initial_link.find(lst1[x])
-        dict[n] = initial_link
-        #n+=1
+        lst.append(initial_link)
+    return lst
+
+def sort(a):
+    lst1 = ["cnn", "bbc", "guardian", "reuters", "who.int", ".org"]
+    lst2 = ["worldometer", ".pk", ".info"]
+    n = 0
+    dict = {}
+    for i in a:
+        for j in lst1:
+            if j in i:
+                n = 1
+                dict[n] = i
+        for x in lst2:
+            if x in i:
+                n = 0
+                dict[n] = i
+            else:
+                n = -1
+                dict[n] = i
     return dict
 
+print(sort(scrape("corona")))
 print(scrape("corona"))
+print(len(scrape("corona")))
