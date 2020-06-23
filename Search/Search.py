@@ -52,16 +52,25 @@ def sort(a):
         for j in lst1:
             if j in i:
                 n = 1
-                dict[n] = i
+                if n not in dict:
+                    dict[n] = i
+                else:
+                    dict[n].append(i)
         for x in lst2:
             if x in i:
                 n = 0
-                dict[n] = i
+                if n not in dict:
+                    dict[n] = i
+                else:
+                    dict[n].append(i)
             else:
                 n = -1
-                dict[n] = i
+                if n not in dict:
+                    dict[n] = i
+                else:
+                    dict[n].append(i)
     return dict
 
 print(sort(scrape("corona")))
-print(scrape("corona"))
-print(len(scrape("corona")))
+#print(scrape("corona"))
+#print(len(scrape("corona")))
