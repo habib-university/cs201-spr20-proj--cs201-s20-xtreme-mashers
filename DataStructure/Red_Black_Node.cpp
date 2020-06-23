@@ -35,6 +35,11 @@ Red_Black_Node::~Red_Black_Node()
 
 }
 
+void Red_Black_Node::set_preffered(bool _preffered)
+{
+    preffered_child = _preffered;
+}
+
 void Red_Black_Node::set_value(int _value)
 {
     value = _value;
@@ -43,6 +48,11 @@ void Red_Black_Node::set_value(int _value)
 void Red_Black_Node::set_colour(int _colour)
 {
     colour = _colour;
+}
+
+void Red_Black_Node::set_depth(int _depth)
+{
+    depth = _depth;
 }
 
 void Red_Black_Node::set_Right(Red_Black_Node* _right)
@@ -70,6 +80,11 @@ int Red_Black_Node::get_colour()
     return colour;
 }
 
+int Red_Black_Node::get_depth()
+{
+    return depth;
+}
+
 Red_Black_Node* Red_Black_Node::get_Left()
 {
     return left;
@@ -83,4 +98,9 @@ Red_Black_Node* Red_Black_Node::get_Right()
 Red_Black_Node* Red_Black_Node::get_Parent()
 {
     return parent;
+}
+
+bool Red_Black_Node::get_preffered()
+{
+    return preffered_child;
 }
