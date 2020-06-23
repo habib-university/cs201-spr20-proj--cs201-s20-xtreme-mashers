@@ -46,29 +46,28 @@ def scrape(text):
 def sort(a):
     lst1 = ["cnn", "bbc", "guardian", "reuters", "who.int", ".org"]
     lst2 = ["worldometer", ".pk", ".info"]
-    n = 0
     dict = {}
+    dict[0] = []
+    dict[1] = []
+    dict[-1] = []
+    added_in_lst1 = False
+    added_in_lst2 = False
     for i in a:
         for j in lst1:
             if j in i:
-                n = 1
-                if n not in dict:
-                    dict[n] = i
-                else:
-                    dict[n].append(i)
-        for x in lst2:
-            if x in i:
-                n = 0
-                if n not in dict:
-                    dict[n] = i
-                else:
-                    dict[n].append(i)
-            else:
-                n = -1
-                if n not in dict:
-                    dict[n] = i
-                else:
-                    dict[n].append(i)
+                dict.get(1).append(i)
+                added_in_lst1 = True
+                break
+        if not added_in_lst1:
+            for x in lst2:
+                if x in i:
+                    dict.get(0).append(i)
+                    added_in_lst2 = True
+                    break
+            if not added_in_lst2:
+                dict.get(-1).append(i)
+        added_in_lst1 = False
+        added_in_lst2 = False
     return dict
 
 print(sort(scrape("corona")))
