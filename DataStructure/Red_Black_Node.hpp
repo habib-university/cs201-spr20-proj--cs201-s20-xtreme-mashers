@@ -1,37 +1,31 @@
 #pragma once
-#include <iostream>
+class Red_Black_Node {
+  private:
+  int data;
+  Red_Black_Node *parent = nullptr;
+  Red_Black_Node *left = nullptr;
+  Red_Black_Node *right = nullptr;
+  int color;
+  int depth;
+  bool prefered = false;
 
-class Red_Black_Node
-{
-    private:
-    int value;
-    int colour; //0-black, 1-red
-    int depth;
-    Red_Black_Node* right;
-    Red_Black_Node* left;
-    Red_Black_Node* parent;
-    bool preffered_child;
+  public:
+  Red_Black_Node(){}
+  ~Red_Black_Node(){}
+  
+  void set_data(int data_) {data = data_;}
+  void set_parent(Red_Black_Node* parent_) {parent = parent_;}
+  void set_left(Red_Black_Node* left_) {left = left_;}
+  void set_right(Red_Black_Node* right_) {right = right_;}
+  void set_color(int color_) {color = color_;}
+  void set_depth(int depth_) {depth = depth_;}
+  void set_prefered(bool prefered_) {prefered = prefered_;}
 
-    public:
-    Red_Black_Node(int _value, Red_Black_Node* _parent, int _colour);
-    Red_Black_Node(int _value, Red_Black_Node* _parent);
-    Red_Black_Node(int _colour);
-    Red_Black_Node();
-    ~Red_Black_Node();
-
-    void set_depth(int);
-    void set_value(int);
-    void set_colour(int);
-    void set_Right(Red_Black_Node*);
-    void set_Left(Red_Black_Node*);
-    void set_Parent(Red_Black_Node*);
-    void set_preffered(bool);
-
-    int get_value();
-    int get_colour();
-    int get_depth();
-    Red_Black_Node* get_Right();
-    Red_Black_Node* get_Left();
-    Red_Black_Node* get_Parent();
-    bool get_preffered();
+  int get_data() {return data;}
+  Red_Black_Node* get_parent() {return parent;}
+  Red_Black_Node* get_left() {return left;}
+  Red_Black_Node* get_right() {return right;}
+  int get_color() {return color;}
+  int get_depth() {return depth;}
+  bool get_prefered() {return prefered;}
 };
