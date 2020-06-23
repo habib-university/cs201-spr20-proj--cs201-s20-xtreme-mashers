@@ -52,4 +52,4 @@ class Node
     {
         return _val;
     }
-}
+};
