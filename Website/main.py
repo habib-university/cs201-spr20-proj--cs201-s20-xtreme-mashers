@@ -3,6 +3,8 @@ import requests
 import webbrowser
 from bs4 import BeautifulSoup
 import json
+from json2html import *
+import time
 
 app = Flask(__name__)
 
@@ -89,7 +91,6 @@ def sort(a):
     return dict
 
 
-
 @app.route('/')
 def index():
     return render_template("Search.html")
@@ -98,9 +99,11 @@ def index():
 @app.route('/', methods=['POST'])
 def myform():
     text = request.form['search']
-    with open('data.json', 'w') as outfile:
-        json.dump(sort(scrape(text)), outfile)
-    return sort(scrape(text))
+    text = json2html.convert(json = json.dumps(sort(scrape(text))))
+    text_file = open("templates/data.html", "w")
+    n = text_file.write(text)
+    text_file.close()
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
