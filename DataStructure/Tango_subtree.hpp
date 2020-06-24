@@ -2,13 +2,12 @@
 #include "Tango_Tree_Node.hpp"
 #include <iostream>
 #include <stack>
-typedef Tango_Tree_Node *NodePtr;
 class Tango_subtree
 {
 private:
-    NodePtr root;
+    Tango_Tree_Node *root;
 
-    void initializeNULLNode(NodePtr node, NodePtr parent)
+    void initializeNULLNode(Tango_Tree_Node *node, Tango_Tree_Node *parent)
     {
         node->set_data(0);
         node->set_parent(parent);
@@ -18,7 +17,7 @@ private:
     }
 
     // Preorder
-    void preOrderHelper(NodePtr node)
+    void preOrderHelper(Tango_Tree_Node *node)
     {
         if (node != TNULL)
         {
@@ -29,7 +28,7 @@ private:
     }
 
     // Inorder
-    void inOrderHelper(NodePtr node)
+    void inOrderHelper(Tango_Tree_Node *node)
     {
         if (node != TNULL)
         {
@@ -40,7 +39,7 @@ private:
     }
 
     // Post order
-    void postOrderHelper(NodePtr node)
+    void postOrderHelper(Tango_Tree_Node *node)
     {
         if (node != TNULL)
         {
@@ -50,7 +49,7 @@ private:
         }
     }
 
-    NodePtr searchTreeHelper(NodePtr node, int key)
+    Tango_Tree_Node *searchTreeHelper(Tango_Tree_Node *node, int key)
     {
         if (node == TNULL || key == node->get_data())
         {
@@ -70,9 +69,9 @@ private:
     }
 
     // For balancing the tree after deletion
-    void deleteFix(NodePtr x)
+    void deleteFix(Tango_Tree_Node *x)
     {
-        NodePtr s;
+        Tango_Tree_Node *s;
         while (x != root && x->get_color() == 0)
         {
             if (x == x->get_parent()->get_left())
@@ -145,7 +144,7 @@ private:
         x->set_color(0);
     }
 
-    void rbTransplant(NodePtr u, NodePtr v)
+    void rbTransplant(Tango_Tree_Node *u, Tango_Tree_Node *v)
     {
         if (u->get_parent() == nullptr)
         {
@@ -162,10 +161,11 @@ private:
         v->set_parent(u->get_parent());
     }
 
-    void deleteNodeHelper(NodePtr node, int key)
+    void deleteNodeHelper(Tango_Tree_Node *node, int key)
     {
-        NodePtr z = TNULL;
-        NodePtr x, y;
+        Tango_Tree_Node *z = TNULL;
+        Tango_Tree_Node *x;
+        Tango_Tree_Node *y;
         while (node != TNULL)
         {
             if (node->get_data() == key)
@@ -230,9 +230,9 @@ private:
     }
 
     // For balancing the tree after insertion
-    void insertFix(NodePtr k)
+    void insertFix(Tango_Tree_Node *k)
     {
-        NodePtr u;
+        Tango_Tree_Node *u;
         while (k->get_parent()->get_color() == 1)
         {
             if (k->get_parent() == k->get_parent()->get_parent()->get_right())
@@ -288,7 +288,7 @@ private:
         root->set_color(0);
     }
 
-    void printHelper(NodePtr root, string indent, bool last)
+    void printHelper(Tango_Tree_Node *root, string indent, bool last)
     {
         if (root != TNULL)
         {
@@ -312,7 +312,7 @@ private:
     }
 
 public:
-    NodePtr TNULL;
+    Tango_Tree_Node *TNULL;
     Tango_subtree()
     {
         TNULL = new Tango_Tree_Node;
@@ -337,12 +337,12 @@ public:
         postOrderHelper(this->root);
     }
 
-    NodePtr searchTree(int k)
+    Tango_Tree_Node *searchTree(int k)
     {
         return searchTreeHelper(this->root, k);
     }
 
-    NodePtr minimum(NodePtr node)
+    Tango_Tree_Node *minimum(Tango_Tree_Node *node)
     {
         while (node->get_left() != TNULL)
         {
@@ -351,7 +351,7 @@ public:
         return node;
     }
 
-    NodePtr maximum(NodePtr node)
+    Tango_Tree_Node *maximum(Tango_Tree_Node *node)
     {
         while (node->get_right() != TNULL)
         {
@@ -360,14 +360,14 @@ public:
         return node;
     }
 
-    NodePtr successor(NodePtr x)
+    Tango_Tree_Node *successor(Tango_Tree_Node *x)
     {
         if (x->get_right() != TNULL)
         {
             return minimum(x->get_right());
         }
 
-        NodePtr y = x->get_parent();
+        Tango_Tree_Node *y = x->get_parent();
         while (y != TNULL && x == y->get_right())
         {
             x = y;
@@ -376,14 +376,14 @@ public:
         return y;
     }
 
-    NodePtr predecessor(NodePtr x)
+    Tango_Tree_Node *predecessor(Tango_Tree_Node *x)
     {
         if (x->get_left() != TNULL)
         {
             return maximum(x->get_left());
         }
 
-        NodePtr y = x->get_parent();
+        Tango_Tree_Node *y = x->get_parent();
         while (y != TNULL && x == y->get_left())
         {
             x = y;
@@ -393,9 +393,9 @@ public:
         return y;
     }
 
-    void leftRotate(NodePtr x)
+    void leftRotate(Tango_Tree_Node *x)
     {
-        NodePtr y = x->get_right();
+        Tango_Tree_Node *y = x->get_right();
         x->set_right(y->get_left());
         if (y->get_left() != TNULL)
         {
@@ -418,9 +418,9 @@ public:
         x->set_parent(y);
     }
 
-    void rightRotate(NodePtr x)
+    void rightRotate(Tango_Tree_Node *x)
     {
-        NodePtr y = x->get_left();
+        Tango_Tree_Node *y = x->get_left();
         x->set_left(y->get_right());
         if (y->get_right() != TNULL)
         {
@@ -444,17 +444,17 @@ public:
     }
 
     // Inserting a node
-    void insert(int key)
+    void insert(Red_Black_Node *n1)
     {
-        NodePtr node = new Tango_Tree_Node;
+        Tango_Tree_Node *node = new Tango_Tree_Node;
+        node->copy_traits(n1);
         node->set_parent(nullptr);
-        node->set_data(key);
         node->set_left(TNULL);
         node->set_right(TNULL);
         node->set_color(1);
 
-        NodePtr y = nullptr;
-        NodePtr x = this->root;
+        Tango_Tree_Node *y = nullptr;
+        Tango_Tree_Node *x = this->root;
 
         while (x != TNULL)
         {
@@ -497,7 +497,7 @@ public:
         insertFix(node);
     }
 
-    NodePtr getRoot()
+    Tango_Tree_Node *getRoot()
     {
         return this->root;
     }
@@ -512,6 +512,39 @@ public:
         if (root)
         {
             printHelper(this->root, "", true);
+        }
+    }
+
+    void hang(Tango_Tree_Node *node)
+    {
+        Tango_Tree_Node *y = nullptr;
+        Tango_Tree_Node *x = this->root;
+
+        while (x != TNULL)
+        {
+            y = x;
+            if (node->get_data() < x->get_data())
+            {
+                x = x->get_left();
+            }
+            else
+            {
+                x = x->get_right();
+            }
+        }
+
+        node->set_parent(y);
+        if (y == nullptr)
+        {
+            root = node;
+        }
+        else if (node->get_data() < y->get_data())
+        {
+            y->set_left(node);
+        }
+        else
+        {
+            y->set_right(node);
         }
     }
 };

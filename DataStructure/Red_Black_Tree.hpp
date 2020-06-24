@@ -2,14 +2,13 @@
 #include <iostream>
 #include "Red_Black_Node.hpp"
 using namespace std;
-typedef Red_Black_Node *NodePtr;
 
 class Red_Black_Tree
 {
 private:
-    NodePtr root;
+    Red_Black_Node *root;
 
-    void initializeNULLNode(NodePtr node, NodePtr parent)
+    void initializeNULLNode(Red_Black_Node *node, Red_Black_Node *parent)
     {
         node->set_data(0);
         node->set_parent(parent);
@@ -19,7 +18,7 @@ private:
     }
 
     // Preorder
-    void preOrderHelper(NodePtr node)
+    void preOrderHelper(Red_Black_Node *node)
     {
         if (node != TNULL)
         {
@@ -30,7 +29,7 @@ private:
     }
 
     // Inorder
-    void inOrderHelper(NodePtr node)
+    void inOrderHelper(Red_Black_Node *node)
     {
         if (node != TNULL)
         {
@@ -41,7 +40,7 @@ private:
     }
 
     // Post order
-    void postOrderHelper(NodePtr node)
+    void postOrderHelper(Red_Black_Node *node)
     {
         if (node != TNULL)
         {
@@ -51,7 +50,7 @@ private:
         }
     }
 
-    NodePtr searchTreeHelper(NodePtr node, int key)
+    Red_Black_Node *searchTreeHelper(Red_Black_Node *node, int key)
     {
         if (node == TNULL || key == node->get_data())
         {
@@ -71,9 +70,9 @@ private:
     }
 
     // For balancing the tree after deletion
-    void deleteFix(NodePtr x)
+    void deleteFix(Red_Black_Node *x)
     {
-        NodePtr s;
+        Red_Black_Node *s;
         while (x != root && x->get_color() == 0)
         {
             if (x == x->get_parent()->get_left())
@@ -146,7 +145,7 @@ private:
         x->set_color(0);
     }
 
-    void rbTransplant(NodePtr u, NodePtr v)
+    void rbTransplant(Red_Black_Node *u, Red_Black_Node *v)
     {
         if (u->get_parent() == nullptr)
         {
@@ -163,10 +162,11 @@ private:
         v->set_parent(u->get_parent());
     }
 
-    void deleteNodeHelper(NodePtr node, int key)
+    void deleteNodeHelper(Red_Black_Node *node, int key)
     {
-        NodePtr z = TNULL;
-        NodePtr x, y;
+        Red_Black_Node *z = TNULL;
+        Red_Black_Node *x;
+        Red_Black_Node *y;
         while (node != TNULL)
         {
             if (node->get_data() == key)
@@ -231,9 +231,9 @@ private:
     }
 
     // For balancing the tree after insertion
-    void insertFix(NodePtr k)
+    void insertFix(Red_Black_Node *k)
     {
-        NodePtr u;
+        Red_Black_Node *u;
         while (k->get_parent()->get_color() == 1)
         {
             if (k->get_parent() == k->get_parent()->get_parent()->get_right())
@@ -289,7 +289,7 @@ private:
         root->set_color(0);
     }
 
-    void printHelper(NodePtr root, string indent, bool last)
+    void printHelper(Red_Black_Node *root, string indent, bool last)
     {
         if (root != TNULL)
         {
@@ -313,7 +313,7 @@ private:
     }
 
 public:
-    NodePtr TNULL;
+    Red_Black_Node *TNULL;
     Red_Black_Tree()
     {
         TNULL = new Red_Black_Node;
@@ -338,12 +338,12 @@ public:
         postOrderHelper(this->root);
     }
 
-    NodePtr searchTree(int k)
+    Red_Black_Node *searchTree(int k)
     {
         return searchTreeHelper(this->root, k);
     }
 
-    NodePtr minimum(NodePtr node)
+    Red_Black_Node *minimum(Red_Black_Node *node)
     {
         while (node->get_left() != TNULL)
         {
@@ -352,7 +352,7 @@ public:
         return node;
     }
 
-    NodePtr maximum(NodePtr node)
+    Red_Black_Node *maximum(Red_Black_Node *node)
     {
         while (node->get_right() != TNULL)
         {
@@ -361,14 +361,14 @@ public:
         return node;
     }
 
-    NodePtr successor(NodePtr x)
+    Red_Black_Node *successor(Red_Black_Node *x)
     {
         if (x->get_right() != TNULL)
         {
             return minimum(x->get_right());
         }
 
-        NodePtr y = x->get_parent();
+        Red_Black_Node *y = x->get_parent();
         while (y != TNULL && x == y->get_right())
         {
             x = y;
@@ -377,14 +377,14 @@ public:
         return y;
     }
 
-    NodePtr predecessor(NodePtr x)
+    Red_Black_Node *predecessor(Red_Black_Node *x)
     {
         if (x->get_left() != TNULL)
         {
             return maximum(x->get_left());
         }
 
-        NodePtr y = x->get_parent();
+        Red_Black_Node *y = x->get_parent();
         while (y != TNULL && x == y->get_left())
         {
             x = y;
@@ -394,9 +394,9 @@ public:
         return y;
     }
 
-    void leftRotate(NodePtr x)
+    void leftRotate(Red_Black_Node *x)
     {
-        NodePtr y = x->get_right();
+        Red_Black_Node *y = x->get_right();
         x->set_right(y->get_left());
         if (y->get_left() != TNULL)
         {
@@ -419,9 +419,9 @@ public:
         x->set_parent(y);
     }
 
-    void rightRotate(NodePtr x)
+    void rightRotate(Red_Black_Node *x)
     {
-        NodePtr y = x->get_left();
+        Red_Black_Node *y = x->get_left();
         x->set_left(y->get_right());
         if (y->get_right() != TNULL)
         {
@@ -447,15 +447,15 @@ public:
     // Inserting a node
     void insert(int key)
     {
-        NodePtr node = new Red_Black_Node;
+        Red_Black_Node *node = new Red_Black_Node;
         node->set_parent(nullptr);
         node->set_data(key);
         node->set_left(TNULL);
         node->set_right(TNULL);
         node->set_color(1);
 
-        NodePtr y = nullptr;
-        NodePtr x = this->root;
+        Red_Black_Node *y = nullptr;
+        Red_Black_Node *x = this->root;
 
         while (x != TNULL)
         {
@@ -498,7 +498,7 @@ public:
         insertFix(node);
     }
 
-    NodePtr getRoot()
+    Red_Black_Node *getRoot()
     {
         return this->root;
     }
@@ -516,7 +516,7 @@ public:
         }
     }
 
-    void setDepth_helper(NodePtr node, int depth)
+    void setDepth_helper(Red_Black_Node *node, int depth)
     {
         if (node != TNULL)
         {

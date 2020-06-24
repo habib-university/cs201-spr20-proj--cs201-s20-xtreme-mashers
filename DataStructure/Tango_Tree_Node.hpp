@@ -39,7 +39,6 @@ public:
     void copy_traits(Red_Black_Node *node)
     {
         data = node->get_data();
-        color = node->get_color();
         depth = node->get_depth();
         prefered = node->get_prefered();
     }
