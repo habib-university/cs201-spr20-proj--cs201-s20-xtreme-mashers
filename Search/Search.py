@@ -82,8 +82,8 @@ def scrape(text):
     #return lst
 
 def sort(a):
-    lst1 = ["cnn", "bbc", "guardian", "reuters", "who.int", ".org"]
-    lst2 = ["worldometer", ".pk", ".info", "wiki"]
+    lst2 = ["cnn", "bbc", "guardian", "reuters", "who.int", ".org", ".edu"]
+    lst1 = ["worldometer", ".info", "wiki"]
     dict = {}
     dict[0] = []
     dict[1] = []
@@ -93,13 +93,13 @@ def sort(a):
     for i in a:
         for j in lst1:
             if j in i:
-                dict.get(1).append(i)
+                dict.get(0).append(i)
                 added_in_lst1 = True
                 break
         if not added_in_lst1:
             for x in lst2:
                 if x in i:
-                    dict.get(0).append(i)
+                    dict.get(1).append(i)
                     added_in_lst2 = True
                     break
             if not added_in_lst2:
@@ -108,6 +108,8 @@ def sort(a):
         added_in_lst2 = False
     return dict
 
-print(sort(scrape("corona")))
-print(scrape("corona"))
-print(len(scrape("corona")))
+
+out = (scrape("habib university"))
+print(out)
+print(len(out))
+print(sort(scrape("habib university")))
