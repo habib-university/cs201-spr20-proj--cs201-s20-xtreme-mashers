@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 def scrape(text):
     user_search = text
     print("Running your search...")
-    print('')
-    print('')
+    #print('Running...')
+    #print('Run...')
 
     #The get function gets all the data from the page link we enter.
     gsearch = requests.get("https://www.google.com/search?q="+user_search)
@@ -20,9 +20,10 @@ def scrape(text):
 
     #Creating a dictionary to present an organized results screen.
     lst = []
-    for i in result[0:11]: #loop to get first 10 links.
-        initial_link = i.get('href') #grab the base url from our scraped data.
-        if "http" in initial_link: #Remove unwanted prefixes and suffixes from urls.
+    for i in result[0:100]:  # loop to get first 10 links.
+        initial_link = i.get('href')  # grab the base url from our scraped data.
+        #print("initial link is : ", initial_link)
+        if "http" in initial_link:  # Remove unwanted prefixes and suffixes from urls.
             slicer = initial_link.find("http")
             initial_link = initial_link[int(slicer):]
             if "&sa" in initial_link:
@@ -31,6 +32,7 @@ def scrape(text):
             elif "%3Fref" in initial_link:
                 slicer = initial_link.find("%3Fref")
                 initial_link = initial_link[:int(slicer)]
+            lst.append(initial_link)
         elif "www." in initial_link:
             slicer = initial_link.find("www.")
             initial_link = initial_link[int(slicer):]
@@ -40,12 +42,37 @@ def scrape(text):
             elif "%3Fref" in initial_link:
                 slicer = initial_link.find("%3Fref")
                 initial_link = initial_link[:int(slicer)]
-        lst.append(initial_link)
+            lst.append(initial_link)
     return lst
+    #lst = []
+    #grbg = ["http", "&sa", "%3Fref", "/search?ie=UTF-8&q=COVID-19"]
+    #for i in result[0:51]: #loop to get first 10 links.
+        #initial_link = i.get('href') #grab the base url from our scraped data.
+        #for x in grbg:
+            #if x in initial_link:  #Remove unwanted prefixes and suffixes from urls.
+                #slicer = initial_link.find(x)
+                #initial_link = initial_link[int(slicer):]
+            #if "&sa" in initial_link:
+                #slicer = initial_link.find("&sa")
+                #initial_link = initial_link[:int(slicer)]
+            #elif "%3Fref" in initial_link:
+                #slicer = initial_link.find("%3Fref")
+                #initial_link = initial_link[:int(slicer)]
+        #elif "www." in initial_link:
+            #slicer = initial_link.find("www.")
+            #initial_link = initial_link[int(slicer):]
+            #if "&sa" in initial_link:
+                #slicer = initial_link.find("&sa")
+                #initial_link = initial_link[:int(slicer)]
+            #elif "%3Fref" in initial_link:
+                #slicer = initial_link.find("%3Fref")
+                #initial_link = initial_link[:int(slicer)]
+        #lst.append(initial_link)
+    #return lst
 
 def sort(a):
     lst1 = ["cnn", "bbc", "guardian", "reuters", "who.int", ".org"]
-    lst2 = ["worldometer", ".pk", ".info"]
+    lst2 = ["worldometer", ".pk", ".info", "wiki"]
     dict = {}
     dict[0] = []
     dict[1] = []
@@ -70,6 +97,6 @@ def sort(a):
         added_in_lst2 = False
     return dict
 
-print(sort(scrape("corona")))
+#print(sort(scrape("corona")))
 #print(scrape("corona"))
 #print(len(scrape("corona")))
