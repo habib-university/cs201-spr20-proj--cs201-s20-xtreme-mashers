@@ -105,6 +105,15 @@ def myform():
     text_file.close()
     return render_template("index.html")
 
+@app.route('/db')
+def db():
+    return render_template("DB.html")
+
+@app.route('/db', methods=['POST'])
+def myform2():
+    text2=request.form['db_search']
+    return text2
+
 
 if __name__ == "__main__":
     app.run(debug = True)
