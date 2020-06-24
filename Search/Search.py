@@ -4,23 +4,34 @@ from bs4 import BeautifulSoup
 def scrape(text):
     user_search = text
     print("Running your search...")
-    #print('Running...')
-    #print('Run...')
+    print('')
+    print('')
 
-    #The get function gets all the data from the page link we enter.
-    gsearch = requests.get("https://www.google.com/search?q="+user_search)
+    # The get function gets all the data from the page link we enter.
+    gsearch = requests.get("https://www.google.com/search?q=" + user_search)
 
-    #This function converts the extracted data into html parser format, Ez to read.
+    # This function converts the extracted data into html parser format, Ez to read.
     soup = BeautifulSoup(gsearch.text, 'html.parser')
-    #print(soup.prettify())
+    # print(soup.prettify())
 
-    #We select the class and object within the html code to print out only
-    #select parts of it, allowing us to extract only the URL.
-    result = soup.select('.BNeawe a')
+    # We select the class and object within the html code to print out only
+    # select parts of it, allowing us to extract only the URL.
+    # print (soup)
+    # result = soup.select('.BNeawe a')
+    tags = soup.find_all('a')
 
-    #Creating a dictionary to present an organized results screen.
+    # Extracting URLs from the attribute href in the <a> tags.
+
+    # for tag in tags:
+    #   print ("--------")
+    #   print(tag.get('href'))
+
+    # print(result)
+    # for i in result:
+    #    print (i)
+    # Creating a dictionary to present an organized results screen.
     lst = []
-    for i in result[0:100]:  # loop to get first 10 links.
+    for i in tags:  # loop to get first 10 links.
         initial_link = i.get('href')  # grab the base url from our scraped data.
         #print("initial link is : ", initial_link)
         if "http" in initial_link:  # Remove unwanted prefixes and suffixes from urls.
@@ -97,6 +108,6 @@ def sort(a):
         added_in_lst2 = False
     return dict
 
-#print(sort(scrape("corona")))
-#print(scrape("corona"))
-#print(len(scrape("corona")))
+print(sort(scrape("corona")))
+print(scrape("corona"))
+print(len(scrape("corona")))
