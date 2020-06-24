@@ -1,16 +1,20 @@
-#include "ReferenceTree.hpp"
+#pragma once
+#include "Tango_subtree.hpp"
 #include <iostream>
+#include <stack>
+using namespace std;
 
-template <class T>
 class TangoTree
 {
-    private:
-    static ReferenceTree<T>* _RefTree
+private:
+    Tango_Tree_Node *root;
 
-    TangoTree();
-    void add();
-    void remove();
-    void join();
+public:
+    TangoTree(){};
+    ~TangoTree(){};
+    void Construction(Red_Black_Tree* ref_tree)
+    {
+        ref_tree->setDepth();
 
-    
+    }
 };

@@ -1,14 +1,15 @@
 template <class T>
 class Node
 {
-    private:
+private:
     T _val;
-    Node* _left;
-    Node* _right;
+    Node *_left;
+    Node *_right;
     int _depth;
-    Node* _preferedchild = nullptr;
-    public:
-    Node(T& val, Node* left, Node* right)
+    Node *_preferedchild = nullptr;
+
+public:
+    Node(T &val, Node *left, Node *right)
     {
         _val = val;
         _left = left;
@@ -16,39 +17,39 @@ class Node
         _preferedchild = nullptr;
     }
     ~Node();
-    Node* getRight()
+    Node *getRight()
     {
         return _right;
     }
-    Node* getLeft() 
+    Node *getLeft()
     {
         return _left;
     }
-    void setRight(Node* right) 
+    void setRight(Node *right)
     {
         _right = right;
     }
-    void setLeft(Node* left) 
+    void setLeft(Node *left)
     {
         _left = left;
     }
-    int getDepth() 
+    int getDepth()
     {
         return _depth;
     }
-    void setDepth(int depth) 
+    void setDepth(int depth)
     {
         _depth = depth;
     }
-    Node* getPreferedchild() 
+    Node *getPreferedchild()
     {
         return _preferedchild;
     }
-    void setPreferedchild(Node* preferedchild) 
+    void setPreferedchild(Node *preferedchild)
     {
         _preferedchild = preferedchild;
     }
-    T getVal() 
+    T getVal()
     {
         return _val;
     }

@@ -1,10 +1,9 @@
 #pragma once
+#include "Tango_Tree_Node.hpp"
 #include <iostream>
-#include "Red_Black_Node.hpp"
-using namespace std;
-typedef Red_Black_Node *NodePtr;
-
-class Red_Black_Tree
+#include <stack>
+typedef Tango_Tree_Node *NodePtr;
+class Tango_subtree
 {
 private:
     NodePtr root;
@@ -314,9 +313,9 @@ private:
 
 public:
     NodePtr TNULL;
-    Red_Black_Tree()
+    Tango_subtree()
     {
-        TNULL = new Red_Black_Node;
+        TNULL = new Tango_Tree_Node;
         TNULL->set_color(0);
         TNULL->set_left(nullptr);
         TNULL->set_right(nullptr);
@@ -447,7 +446,7 @@ public:
     // Inserting a node
     void insert(int key)
     {
-        NodePtr node = new Red_Black_Node;
+        NodePtr node = new Tango_Tree_Node;
         node->set_parent(nullptr);
         node->set_data(key);
         node->set_left(TNULL);
@@ -514,20 +513,5 @@ public:
         {
             printHelper(this->root, "", true);
         }
-    }
-
-    void setDepth_helper(NodePtr node, int depth)
-    {
-        if (node != TNULL)
-        {
-            node->set_depth(depth);
-            setDepth_helper(node->get_left(), depth + 1);
-            setDepth_helper(node->get_right(), depth + 1);
-        }
-    }
-
-    void setDepth()
-    {
-        setDepth_helper(this->root, 0);
     }
 };
