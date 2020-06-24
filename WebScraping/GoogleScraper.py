@@ -21,4 +21,3 @@ for i in result[0:11]: #loop to get first 10 links.
     print(i.get('href'))
     print('')
     break
-return
