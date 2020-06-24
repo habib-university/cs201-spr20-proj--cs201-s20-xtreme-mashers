@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
-import requests, webbrowser
+import requests
+import webbrowser
 from bs4 import BeautifulSoup
+import json
 
 app = Flask(__name__)
 
@@ -58,31 +60,6 @@ def scrape(text):
                 initial_link = initial_link[:int(slicer)]
             lst.append(initial_link)
     return lst
-    #lst = []
-    #grbg = ["http", "&sa", "%3Fref", "/search?ie=UTF-8&q=COVID-19"]
-    #for i in result[0:51]: #loop to get first 10 links.
-        #initial_link = i.get('href') #grab the base url from our scraped data.
-        #for x in grbg:
-            #if x in initial_link:  #Remove unwanted prefixes and suffixes from urls.
-                #slicer = initial_link.find(x)
-                #initial_link = initial_link[int(slicer):]
-            #if "&sa" in initial_link:
-                #slicer = initial_link.find("&sa")
-                #initial_link = initial_link[:int(slicer)]
-            #elif "%3Fref" in initial_link:
-                #slicer = initial_link.find("%3Fref")
-                #initial_link = initial_link[:int(slicer)]
-        #elif "www." in initial_link:
-            #slicer = initial_link.find("www.")
-            #initial_link = initial_link[int(slicer):]
-            #if "&sa" in initial_link:
-                #slicer = initial_link.find("&sa")
-                #initial_link = initial_link[:int(slicer)]
-            #elif "%3Fref" in initial_link:
-                #slicer = initial_link.find("%3Fref")
-                #initial_link = initial_link[:int(slicer)]
-        #lst.append(initial_link)
-    #return lst
 
 def sort(a):
     lst2 = ["cnn", "bbc", "guardian", "reuters", "who.int", ".org", ".edu"]
@@ -111,14 +88,20 @@ def sort(a):
         added_in_lst2 = False
     return dict
 
+
+
 @app.route('/')
 def index():
     return render_template("Search.html")
 
+
 @app.route('/', methods=['POST'])
 def myform():
-    text= request.form['search']
+    text = request.form['search']
+    with open('data.json', 'w') as outfile:
+        json.dump(sort(scrape(text)), outfile)
     return sort(scrape(text))
+
 
 if __name__ == "__main__":
     app.run(debug = True)
