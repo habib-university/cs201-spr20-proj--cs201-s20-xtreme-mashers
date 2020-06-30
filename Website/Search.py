@@ -113,13 +113,53 @@ def sort(a):
         imp.append(dict[1][x])
     return imp
 
-def helper2(x):
-    if len(x) < 100:
-        sort(scrape("hi"))
-    else:
-        return x
+def get_related_keywords(text):
+    user_search = text
+    print("Running your search...")
+    print('')
+    print('')
 
+    # The get function gets all the data from the page link we enter.
+    gsearch = requests.get("https://www.google.com/search?q=" + user_search)
+    soup = BeautifulSoup(gsearch.text, 'html.parser')
+    lst = []
+    lst_of_related_words = []
+    name_box = soup.find_all('div', attrs={'class': 'BNeawe deIvCb AP7Wnd'})
+    start_collecting = False
+    for a in name_box:
+        if start_collecting:
+            name = a.text.strip()
+            lst_of_related_words.append(name)
+        if "Related searches" in str(a):
+            start_collecting = True
 
+    tags = soup.find_all('')
+    for i in tags:  # loop to get first 10 links.
+        print (" i is : ", i)
+        initial_link = i.get('href')  # grab the base url from our scraped data.
+        # print("initial link is : ", initial_link)
+        if "http" in initial_link:  # Remove unwanted prefixes and suffixes from urls.
+            slicer = initial_link.find("http")
+            initial_link = initial_link[int(slicer):]
+            if "&sa" in initial_link:
+                slicer = initial_link.find("&sa")
+                initial_link = initial_link[:int(slicer)]
+            elif "%3Fref" in initial_link:
+                slicer = initial_link.find("%3Fref")
+                initial_link = initial_link[:int(slicer)]
+            lst.append(initial_link)
+        elif "www." in initial_link:
+            slicer = initial_link.find("www.")
+            initial_link = initial_link[int(slicer):]
+            if "&sa" in initial_link:
+                slicer = initial_link.find("&sa")
+                initial_link = initial_link[:int(slicer)]
+            elif "%3Fref" in initial_link:
+                slicer = initial_link.find("%3Fref")
+                initial_link = initial_link[:int(slicer)]
+            lst.append(initial_link)
+    print(lst_of_related_words)
+    return lst_of_related_words
 # out = (scrape("habib university"))
 # print(out)
 # print(len(out))
