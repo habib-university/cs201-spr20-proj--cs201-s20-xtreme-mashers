@@ -9,11 +9,11 @@ def scrape(text):
 
     # The get function gets all the data from the page link we enter.
     gsearch = requests.get("https://www.google.com/search?q=" + user_search)
-
+    r_word = requests.get("https://keywordtool.io/search/keywords/google/53115825?category=web&keyword="+ user_search+"&country=PK&language=en-PK#suggestions")
     # This function converts the extracted data into html parser format, Ez to read.
     soup = BeautifulSoup(gsearch.text, 'html.parser')
     # print(soup.prettify())
-
+    soupier = BeautifulSoup(r_word, 'html.parser')
     # We select the class and object within the html code to print out only
     # select parts of it, allowing us to extract only the URL.
     # print (soup)
@@ -80,14 +80,17 @@ def scrape(text):
                 #initial_link = initial_link[:int(slicer)]
         #lst.append(initial_link)
     #return lst
+def helper():
+    pass
 
 def sort(a):
-    lst2 = ["cnn", "bbc", "guardian", "reuters", "who.int", ".org", ".edu"]
-    lst1 = ["worldometer", ".info", "wiki"]
+    lst2 = ["cnn", "bbc", "guardian", "reuters", "who.int", ".org", ".edu", "official"]
+    lst1 = [".info", "wiki"]
     dict = {}
     dict[0] = []
     dict[1] = []
     dict[-1] = []
+    imp = []
     added_in_lst1 = False
     added_in_lst2 = False
     for i in a:
@@ -106,10 +109,18 @@ def sort(a):
                 dict.get(-1).append(i)
         added_in_lst1 = False
         added_in_lst2 = False
-    return dict
+    for i in dict[1]:
+        imp.append(dict[1][x])
+    return imp
+
+def helper2(x):
+    if len(x) < 100:
+        sort(scrape("hi"))
+    else:
+        return x
 
 
-out = (scrape("habib university"))
-print(out)
-print(len(out))
-print(sort(scrape("habib university")))
+# out = (scrape("habib university"))
+# print(out)
+# print(len(out))
+# print(sort(scrape("habib university")))
