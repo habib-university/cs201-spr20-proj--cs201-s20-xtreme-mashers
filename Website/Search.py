@@ -88,7 +88,7 @@ def sort(a):
     added_in_lst1 = False
     added_in_lst2 = False
     for i in a:
-        print(i)
+        #print(i)
         for j in lst1:
             if j in i:
                 dict.get(0).append(i)
@@ -108,13 +108,6 @@ def sort(a):
         #imp.append(dict[1][x])
     return dict
 
-def helper2(x):
-    if len(x) < 100:
-        sort(scrape("hi"))
-    else:
-        return x
-
-
 def get_related_keywords(text):
     user_search = text
     #print("Running your search...")
@@ -131,7 +124,7 @@ def get_related_keywords(text):
 
 def scrape_on_keywords(related_keywords):
     final_lst = []
-    total_links = 0
+    total_links = 0;
     for a in related_keywords:
         #print(a)
         out = (scrape(a))
@@ -148,7 +141,7 @@ def scrape_on_keywords(related_keywords):
 
 def process_dict(my_dict : dict):
     mylst = my_dict.get(1)
-    #print(mylst)
+    print(mylst)
     return mylst
 
 
@@ -159,3 +152,4 @@ for word in get_related_keywords(text):
 #print("all keywords are: ", related_words)
 
 scrape_on_keywords(related_words)
+
