@@ -93,7 +93,7 @@ def get_related_keywords(text):
 def process_dict(my_dict: dict):
     # extracts reliable links
     mylst = my_dict.get(1)
-    print(mylst)
+    # print(mylst)
     return mylst
 
 
@@ -115,4 +115,6 @@ def scrape_on_keywords(related_keywords):
     # print(total_links)
     return final_lst
 
-# scrape_on_keywords(helper("cat"))
+lst = scrape_on_keywords(helper("cat"))
+
+
