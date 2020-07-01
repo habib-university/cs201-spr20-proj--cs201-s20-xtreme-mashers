@@ -1,5 +1,5 @@
 #pragma once
-#include "Red_Black_Tree.cpp"
+#include "Red_Black_Tree.hpp"
 #include <iostream>
 #include <stack>
 using namespace std;
