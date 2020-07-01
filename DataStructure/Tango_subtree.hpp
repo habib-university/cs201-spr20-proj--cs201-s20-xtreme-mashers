@@ -547,4 +547,208 @@ public:
             y->set_right(node);
         }
     }
+
+    int MinD(Tango_Tree_Node* x)
+    {
+        stack<Tango_Tree_Node *> s1;
+        int minD = 100000000;
+        s1.push(x->get_left());
+        s1.push(x->get_right());
+        Tango_Tree_Node *node = nullptr;
+        while (!s1.empty())
+        {
+            node = s1.top();
+            s1.pop();
+            if (node != TNULL)
+            {
+                if (node->get_depth() < minD)
+                {
+                    minD = node->get_depth();
+                }
+                s1.push(node->get_left());
+                s1.push(node->get_right());
+            }
+        }
+        return minD;
+    }
+
+    int MaxD(Tango_Tree_Node *x)
+    {
+        stack<Tango_Tree_Node *> s1;
+        int maxD = 0;
+        s1.push(x->get_left());
+        s1.push(x->get_right());
+        Tango_Tree_Node *node = nullptr;
+        while (!s1.empty())
+        {
+            node = s1.top();
+            s1.pop();
+            if (node != TNULL)
+            {
+                if (node->get_depth() > maxD)
+                {
+                    maxD = node->get_depth();
+                }
+                s1.push(node->get_left());
+                s1.push(node->get_right());
+            }
+        }
+        return maxD;
+    }
+
+    int minIgnoreMinusone_(int minD, int d)
+    {
+        if (minD == -1)
+        {
+            return d;
+        }
+
+        if (d == -1)
+        {
+            return minD;
+        }
+        return std::min(minD, d);
+    }
+
+    Tango_Tree_Node* search_tree_(Tango_Tree_Node* x, int value)
+    {
+        if (x == TNULL || value == x->get_data())
+        {
+            return x;
+        }
+
+        if (value < x->get_data())
+        {
+            return search_tree_(x->get_left(), value);
+        }
+        else
+        {
+            return search_tree_(x->get_right(), value);
+        }
+    }
+
+    bool isInThistree_(Tango_Tree_Node* n, Tango_Tree_Node* currentRoot)
+    {
+        if(n->get_isRoot() && n != currentRoot)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+        
+    }
+
+    void traverse_tree_(Tango_Tree_Node* x, Tango_Tree_Node* root)
+    {
+        if(x != TNULL && isInThistree_(x, root))
+        {
+            traverse_tree_(x->get_left(), root);
+            traverse_tree_(x->get_right(), root);
+        }
+    }
+
+    Tango_Tree_Node* min_val_tree(Tango_Tree_Node* x)
+    {
+        while (x->get_left() != TNULL)
+        {
+            x = x->get_left();
+        }
+        return x;
+    }
+
+    Tango_Tree_Node* max_val_tree(Tango_Tree_Node* x)
+    {
+        while (x->get_right() != TNULL)
+        {
+            x = x->get_right();
+        }
+        return x;
+    }
+
+    Tango_Tree_Node* getR(int d, Tango_Tree_Node* n, Tango_Tree_Node* currentRoot)
+    {
+        Tango_Tree_Node *r = n;
+        if (n->get_right() != TNULL && !(n->get_isRoot() || n == currentRoot) && (MaxD(n->get_right()) > d || n->get_right()->get_depth() > d))
+        {
+            r = getR(d, n->get_left(), currentRoot);
+        }
+        else
+        {
+            if(n->get_depth() > d)
+            {
+                r = n;
+            }
+
+            else
+            {
+                r = getR(d, n->get_right(), currentRoot);
+            }
+            
+        }
+        return r;
+    }
+
+    Tango_Tree_Node* getL(int d, Tango_Tree_Node* n, Tango_Tree_Node* currentRoot)
+    {
+        Tango_Tree_Node *l = n;
+        if (n->get_left() != TNULL && !(n->get_isRoot() || n == currentRoot) && (MaxD(n->get_left()) > d || n->get_left()->get_depth() > d))
+        {
+            l = getL(d, n->get_left(), currentRoot);
+        }
+        else
+        {
+            if (n->get_depth() > d)
+            {
+                l = n;
+            }
+
+            else
+            {
+                l = getR(d, n->get_right(), currentRoot);
+            }
+        }
+        return l;
+    }
+
+    Tango_Tree_Node* siblingBound(Tango_Tree_Node* n, Tango_Tree_Node* boundingRoot)
+    {
+        if (n == n->get_parent()->get_left() && isInThistree_(n->get_parent()->get_left(), boundingRoot))
+        {
+            if(isInThistree_(n->get_parent()->get_right(), boundingRoot))
+            {
+                return n->get_parent()->get_right();
+            }
+            else
+            {
+                return TNULL;
+            }
+        }
+        else
+        {
+            if (isInThistree_(n->get_parent()->get_left(), boundingRoot))
+            {
+                return n->get_parent()->get_left();
+            }
+            else
+            {
+                return TNULL;
+            }
+        }
+    }
+
+    Tango_Tree_Node *uncleBound(Tango_Tree_Node *n, Tango_Tree_Node *boundingRoot)
+    {
+        if (isInThistree_(n->get_parent(), boundingRoot))
+        {
+            return siblingBound(n, boundingRoot);
+        }
+        else
+        {
+            return TNULL;
+        }
+    }
+
+    
 };

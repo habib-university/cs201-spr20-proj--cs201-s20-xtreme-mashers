@@ -1,6 +1,7 @@
 #pragma once
 #include "Red_Black_Tree.hpp"
 #include <iostream>
+#include <stack>
 using namespace std;
 
 class Tango_Tree_Node
