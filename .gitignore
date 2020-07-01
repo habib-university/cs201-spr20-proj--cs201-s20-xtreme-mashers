@@ -8,3 +8,6 @@ __pycache__
 *.bat
 *.exe
 *.sln
+*.xml
+*.iml
+venv
