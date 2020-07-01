@@ -74,8 +74,11 @@ def scrape(text):
                 #initial_link = initial_link[:int(slicer)]
         #lst.append(initial_link)
     #return lst
-def helper():
-    pass
+def helper(text):
+    related_words = [text]
+    for word in get_related_keywords(text):
+        related_words.append(word)
+    return related_words
 
 def sort(a):
     lst2 = ["cnn", "bbc", "guardian", "reuters", "who.int", ".org", ".edu", "official"]
@@ -146,10 +149,7 @@ def process_dict(my_dict : dict):
 
 
 text = "cat"
-related_words = [text]
-for word in get_related_keywords(text):
-    related_words.append(word)
 #print("all keywords are: ", related_words)
 
-scrape_on_keywords(related_words)
+scrape_on_keywords(helper(text))
 
