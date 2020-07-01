@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+from flask_nav import Nav
+from flask_nav.elements import Navbar, Subgroup, View, Link, Text, Separator
 import requests
 import webbrowser
 from bs4 import BeautifulSoup
@@ -6,7 +8,7 @@ import json
 from json2html import *
 import time
 
-app = Flask(__name__)
+
 
 def scrape(text):
     user_search = text
@@ -29,13 +31,6 @@ def scrape(text):
 
     # Extracting URLs from the attribute href in the <a> tags.
 
-    # for tag in tags:
-    #   print ("--------")
-    #   print(tag.get('href'))
-
-    # print(result)
-    # for i in result:
-    #    print (i)
     # Creating a dictionary to present an organized results screen.
     lst = []
     for i in tags:  # loop to get first 10 links.
@@ -91,6 +86,14 @@ def sort(a):
     return dict
 
 
+app = Flask(__name__)
+nav = Nav(app)
+
+nav.register_element('mynav',
+Navbar('mynav', 
+View('Build Your Database', 'myform'),
+View('Search Our Database', 'db')))
+
 @app.route('/')
 def index():
     return render_template("Search.html")
@@ -100,10 +103,10 @@ def index():
 def myform():
     text = request.form['search']
     text = json2html.convert(json = json.dumps(sort(scrape(text))))
-    text_file = open("templates/data.html", "w")
-    n = text_file.write(text)
+    text_file = open("data.html", "w")
+    text_file.write(text)
     text_file.close()
-    return render_template("index.html")
+    return render_template("data.html")
 
 @app.route('/db')
 def db():

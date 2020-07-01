@@ -115,4 +115,6 @@ def scrape_on_keywords(related_keywords):
     # print(total_links)
     return final_lst
 
-# scrape_on_keywords(helper("cat"))
+lst = scrape_on_keywords(helper("cat"))
+
+

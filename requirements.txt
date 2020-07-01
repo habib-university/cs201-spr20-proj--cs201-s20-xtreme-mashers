@@ -1,4 +1,6 @@
 flask
+flask-nav
+flask-bootstrap
 beautifulsoup4
 requests
 textblob
