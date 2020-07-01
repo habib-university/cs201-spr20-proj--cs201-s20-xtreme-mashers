@@ -93,7 +93,7 @@ def get_related_keywords(text):
 def process_dict(my_dict: dict):
     # extracts reliable links
     mylst = my_dict.get(1)
-    print(mylst)
+    # print(mylst)
     return mylst
 
 
