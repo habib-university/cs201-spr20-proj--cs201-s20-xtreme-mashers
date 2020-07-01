@@ -58,13 +58,4 @@ class Red_Black_Tree(object):
     def RBT_getRoot(self):
         lib.RBT_getRoot(self.obj)
 
-string_to_hash = "hello"
-string_to_hash1 = "habib"
-SEPARETOR = ''
-f = int(SEPARETOR.join(list(str(ord(character)) for character in string_to_hash)))
-c = int(SEPARETOR.join(list(str(ord(character)) for character in string_to_hash1)))
 
-rbtree = Red_Black_Tree()
-rbtree.RBT_insert(f)
-rbtree.RBT_insert(c)
-rbtree.RBT_printTree()

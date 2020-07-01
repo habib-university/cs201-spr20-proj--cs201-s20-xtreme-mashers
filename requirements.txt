@@ -4,3 +4,4 @@ flask-bootstrap
 beautifulsoup4
 requests
 textblob
+json2html
