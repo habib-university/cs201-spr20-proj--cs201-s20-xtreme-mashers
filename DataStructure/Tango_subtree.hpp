@@ -750,5 +750,21 @@ public:
         }
     }
 
-    
+    void updateMinMaxD(Tango_Tree_Node* n)
+    {
+        int minCandidate;
+        if(n->get_left() != TNULL)
+        {
+            updateMinMaxD(n->get_left());
+        }
+        if(n->get_right() != TNULL)
+        {
+            updateMinMaxD(n->get_right());
+        }
+        if(n->get_left() != TNULL)
+        {
+            int maxFromLeft = std::max(n->get_left()->get_depth(), MaxD(n->get_left()));
+            
+        }
+    }
 };

@@ -15,6 +15,7 @@ private:
     Tango_Tree_Node *right;
     bool prefered;
     bool isRoot;
+    int Max;
 
 public:
     Tango_Tree_Node();
