@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Red_Black_Node.hpp"
+#include "Red_Black_Node.cpp"
 using namespace std;
 
 class Red_Black_Tree
