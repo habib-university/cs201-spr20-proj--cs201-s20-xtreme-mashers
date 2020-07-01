@@ -140,7 +140,7 @@ public:
 };
 
 extern "C" {
-    Red_Black_Node* Red_Black_Node_new(){ return new Red_Black_Node();}
+    Red_Black_Node* Red_Black_Node_new(){ return new Red_Black_Node(); }
     
     int data;
     Red_Black_Node *parent = nullptr;
