@@ -17,40 +17,17 @@ public:
         _preferedchild = nullptr;
     }
     ~Node();
-    Node *getRight()
-    {
-        return _right;
-    }
-    Node *getLeft()
-    {
-        return _left;
-    }
-    void setRight(Node *right)
-    {
-        _right = right;
-    }
-    void setLeft(Node *left)
-    {
-        _left = left;
-    }
-    int getDepth()
-    {
-        return _depth;
-    }
+    Node *getRight(){ return _right; }
+    Node *getLeft(){return _left; }
+    void setRight(Node *right){ _right = right;}
+    void setLeft(Node *left){_left = left;}
+    int getDepth(){return _depth;}
     void setDepth(int depth)
     {
         _depth = depth;
     }
-    Node *getPreferedchild()
-    {
-        return _preferedchild;
-    }
-    void setPreferedchild(Node *preferedchild)
-    {
-        _preferedchild = preferedchild;
-    }
-    T getVal()
-    {
-        return _val;
-    }
+    Node *getPreferedchild(){ return _preferedchild;  }
+    void setPreferedchild(Node *preferedchild){ _preferedchild = preferedchild;}
+    T getVal(){ return _val;}
 };
+
